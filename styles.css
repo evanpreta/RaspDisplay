@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to top, #2e4971, #0a1f36, #000203); /* Darker blue at the bottom to lighter blue at the top */
+    background: linear-gradient(to top, #233c61, #0a1f36, #000203); /* Darker blue at the bottom to lighter blue at the top */
     color: white;
 }
 
@@ -202,13 +202,14 @@ body {
     z-index: 1; /* Ensure wheels are above the car image */
 }
 
-.car-image
-{
-    width: 240px;   /* Changed width/height to center on Pi sccreen */
+.car-image {
+    width: 240px;
     height: 400px;
-    transform: translate(-15px,20px);
-    
+    transform: translate(25px, 20px); /* Adjusted for your position */
+    filter: drop-shadow(0 0 3px white); /* Creates a white outline effect */
 }
+
+
 
 .front-left {
     left: 50px;  /* Set the X position */
