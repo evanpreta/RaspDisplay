@@ -25,19 +25,19 @@ function updateTirePressure() {
 // Adjusted position of all wheels to fit onto PI aspect ratio
 // Front wheels by -50 y and Rear by -100 y
 frontLeft.style.position = 'absolute';
-frontLeft.style.left = '45px';  // Set the X position
+frontLeft.style.left = '50px';  // Set the X position
 frontLeft.style.top = '50px';   // Set the Y position
 
 frontRight.style.position = 'absolute';
-frontRight.style.left = '195px';  // Set the X position
+frontRight.style.left = '200px';  // Set the X position
 frontRight.style.top = '50px';   // Set the Y position
 
 rearLeft.style.position = 'absolute';
-rearLeft.style.left = '45px';  // Set the X position
+rearLeft.style.left = '50px';  // Set the X position
 rearLeft.style.top = '300px';   // Set the Y position
 
 rearRight.style.position = 'absolute';
-rearRight.style.left = '195px';  // Set the X position
+rearRight.style.left = '200px';  // Set the X position
 rearRight.style.top = '300px'; 
 
 // Update tire pressure every 3 seconds
