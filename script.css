@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #0d0d0d;
+    background: linear-gradient(to top, #001f4d, #003366, #336699); /* Darker blue at the bottom to lighter blue at the top */
     color: white;
 }
 
