@@ -102,3 +102,18 @@ function updateMileage() {
 }
 setInterval(updateMileage, 5000);
 
+// Select all indicator buttons
+const indicators = document.querySelectorAll('.indicator');
+
+// Function to toggle color
+indicators.forEach(indicator => {
+    indicator.addEventListener('click', () => {
+        if (indicator.classList.contains('active')) {
+            indicator.classList.remove('active');
+            indicator.style.backgroundColor = '#333'; // Original color
+        } else {
+            indicator.classList.add('active');
+            indicator.style.backgroundColor = '#007BFF'; // Active color (change as desired)
+        }
+    });
+});
