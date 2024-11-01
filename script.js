@@ -22,21 +22,23 @@ function updateTirePressure() {
 }
 
 // Set positions of the wheels (as in your original code)
+// Adjusted position of all wheels to fit onto PI aspect ratio
+// Front wheels by -50 y and Rear by -100 y
 frontLeft.style.position = 'absolute';
 frontLeft.style.left = '0px';  // Set the X position
-frontLeft.style.top = '100px';   // Set the Y position
+frontLeft.style.top = '50px';   // Set the Y position
 
 frontRight.style.position = 'absolute';
 frontRight.style.left = '150px';  // Set the X position
-frontRight.style.top = '100px';   // Set the Y position
+frontRight.style.top = '50px';   // Set the Y position
 
 rearLeft.style.position = 'absolute';
 rearLeft.style.left = '0px';  // Set the X position
-rearLeft.style.top = '400px';   // Set the Y position
+rearLeft.style.top = '300px';   // Set the Y position
 
 rearRight.style.position = 'absolute';
 rearRight.style.left = '150px';  // Set the X position
-rearRight.style.top = '400px'; 
+rearRight.style.top = '300px'; 
 
 // Update tire pressure every 3 seconds
 setInterval(updateTirePressure, 3000);
