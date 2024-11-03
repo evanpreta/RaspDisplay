@@ -35,7 +35,7 @@ def receive_tcp_data(host, port):
             except ConnectionResetError:
                 print("Connection lost. Server might have disconnected.")
                 break
-if __name__ == "__tcp_client__":
+if __name__ == "__main__":
     # Example usage
     host = '192.168.0.10'  # Replace with Speedgoat IP or hostname
     port = 8765  # Replace with the correct port used by the Speedgoat server
