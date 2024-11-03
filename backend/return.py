@@ -52,8 +52,8 @@ def send_test_message(host, port):
         print(f"Sent: identifier={identifier}, value={value}")
 
 if __name__ == "__main__":
-    host = '192.168.0.10'  # Replace with Speedgoat IP or hostname
-    port = 8765  # Replace with the correct port used by the Speedgoat server
+    host = '10.10.10.1'  # Replace with Speedgoat IP or hostname
+    port = 1048  # Replace with the correct port used by the Speedgoat server
     
     while True:
         send_test_message(host, port)
