@@ -1,15 +1,15 @@
 This repository orchestrates a bidirectional TCP web socket backend with a react JS frontend GUI.
 
 
-RaspDisplay/
-├── backend/
+RaspDisplay/ <br />
+├── backend/ <br />
 │   ├── __init__.py
-│   ├── main.py              # Orchestrates components
-│   ├── tcp_handler.py       # Handles TCP messages
-│   ├── websocket_handler.py # Manages WebSocket communication with the frontend
-│   └── requirements.txt     # Python package dependencies
-├── frontend/                # Frontend for GUI (non-React)
-│   ├── styles.css           # Styling for the frontend
-│   ├── output.html          # Main HTML file for the frontend
-│   ├── script.js            # Frontend JavaScript for handling WebSocket
+│   ├── main.py              # Orchestrates components <br />
+│   ├── tcp_handler.py       # Handles TCP messages <br />
+│   ├── websocket_handler.py # Manages WebSocket communication with the frontend <br />
+│   └── requirements.txt     # Python package dependencies <br />
+├── frontend/                # Frontend for GUI (non-React) <br />
+│   ├── styles.css           # Styling for the frontend <br />
+│   ├── output.html          # Main HTML file for the frontend <br />
+│   ├── script.js            # Frontend JavaScript for handling WebSocket <br />
 ├── README.md
