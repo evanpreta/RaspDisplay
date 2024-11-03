@@ -3,7 +3,7 @@ This repository orchestrates a bidirectional TCP web socket backend with a react
 
 RaspDisplay/ <br />
 ├── backend/ <br />
-│   ├── __init__.py
+│   ├── __init__.py <br />
 │   ├── main.py              # Orchestrates components <br />
 │   ├── tcp_handler.py       # Handles TCP messages <br />
 │   ├── websocket_handler.py # Manages WebSocket communication with the frontend <br />
