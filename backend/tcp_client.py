@@ -37,6 +37,6 @@ def receive_tcp_data(host, port):
                 break
 if __name__ == "__main__":
     # Example usage
-    host = '192.168.0.10'  # Replace with Speedgoat IP or hostname
-    port = 8765  # Replace with the correct port used by the Speedgoat server
+    host = '10.10.10.1'  # Replace with Speedgoat IP or hostname
+    port = 1048  # Replace with the correct port used by the Speedgoat server
     receive_tcp_data(host, port)
