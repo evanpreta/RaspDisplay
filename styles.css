@@ -51,9 +51,9 @@ body {
 
 
 .indicator {
-    padding: 15px;
-    width: 120px; 
-    border-radius: 8px;
+    padding: 20px; /* Increased padding for a larger button */
+    width: 300px;  /* Wide button */
+    border-radius: 10px;
     text-align: center;
     transition: background-color 0.3s ease;
     box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.1);
@@ -61,6 +61,11 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+    font-size: 18px; /* Larger text */
+}
+
+.indicator.active {
+    background-color: #007BFF; /* Color for active state */
 }
 
 
@@ -208,7 +213,7 @@ body {
 .car-image {
     width: 240px;
     height: 400px;
-    transform: translate(30px, 20px); /* Adjusted for your position */
+    transform: translate(30px, 10px); /* Adjusted for your position */
     filter: drop-shadow(0 0 3px white); /* Creates a white outline effect */
 }
 
@@ -247,6 +252,27 @@ body {
     bottom: -30px;
     left: 10px;
     font-size: 28px;
+}
+
+.motor-temp {
+    text-align: center;
+    font-size: 20px;
+    margin: 20px 0; /* Adjust for spacing above and below the text */
+    line-height: 1.5; /* Adjust for height of the text */
+}
+
+.drive-mode {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff; /* Adjust color as needed */
+}
+
+#fuel-percentage {
+    font-size: 18px;
+    margin-left: 10px;
 }
 
 @keyframes blink {

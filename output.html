@@ -10,10 +10,9 @@
     <div class="dashboard">
         <!-- Feature Indicators -->
         <div class="feature-indicators">
-            <button class="indicator cacc">CACC</button>
-            <button class="indicator lcc">LCC</button>
-            <button class="indicator ain">AIN</button>
-        </div>
+    <button id="dms-button" class="indicator">DMS Off</button>
+</div>
+
         
 
         <!-- Fuel Indicator -->
@@ -23,12 +22,14 @@
                 <div class="fuel-level" id="fuel-level"></div>
             </div>
             <span>F</span>
+            <span id="fuel-percentage">100%</span>
         </div>
+        
 
         <div class="content">
             <div class="road-view">
                 <div class="lane-line left-line"></div>
-                <div class="lane-line center-line"></div>
+                
                 <div class="lane-line right-line"></div>
 
                 <div class="traffic-light" id="traffic-light">
@@ -48,6 +49,7 @@
             </div>
 
             <div class="vehicle-status">
+                <p id="front-motor-temp" class="motor-temp">Front Motor Temp: 0°C</p>
                 <div class="car-model" style="position: relative;">
                     <img src="cartooncar.png" alt="Car Image" class="car-image">
                     <div class="wheel front-left"></div>
@@ -55,7 +57,8 @@
                     <div class="wheel rear-left"></div>
                     <div class="wheel rear-right"></div>
                 </div>
-            </div>
+                <p id="rear-motor-temp" class="motor-temp">Rear Motor Temp: 0°C</p>
+            </div>            
         </div>
 
         <!-- Bottom Section with Battery Temp -->
@@ -65,6 +68,9 @@
                 <p>CACC: <span id="cacc-mileage">27.3 mi</span></p>
             </div>
         </div>
+        <div class="drive-mode" id="drive-mode-status">Drive Mode: Parked</div>
+
+        
     </div>
 
     <script src="script.js"></script>

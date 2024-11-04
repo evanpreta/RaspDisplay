@@ -9,11 +9,28 @@ const wheels = [frontLeft, frontRight, rearLeft, rearRight];
 
 // Function to update tire pressure and change wheel color
 function updateTirePressure() {
-    wheels.forEach((wheel) => {
-        const pressure = Math.random(); // Random value between 0 and 1
-        if (pressure > 0.5) {
+    // Generate random pressures for the front and rear axles
+    const frontAxlePressure = Math.random(); // Random value between 0 and 1
+    const rearAxlePressure = Math.random();  // Random value between 0 and 1
+
+    // Set front wheels' pressure based on front axle
+    const frontWheels = [frontLeft, frontRight];
+    frontWheels.forEach((wheel) => {
+        if (frontAxlePressure > 0.5) {
             wheel.style.backgroundColor = 'green'; // Optimal pressure
-        } else if (pressure > 0.2) {
+        } else if (frontAxlePressure > 0.2) {
+            wheel.style.backgroundColor = 'yellow'; // Low pressure
+        } else {
+            wheel.style.backgroundColor = 'red'; // Critical pressure
+        }
+    });
+
+    // Set rear wheels' pressure based on rear axle
+    const rearWheels = [rearLeft, rearRight];
+    rearWheels.forEach((wheel) => {
+        if (rearAxlePressure > 0.5) {
+            wheel.style.backgroundColor = 'green'; // Optimal pressure
+        } else if (rearAxlePressure > 0.2) {
             wheel.style.backgroundColor = 'yellow'; // Low pressure
         } else {
             wheel.style.backgroundColor = 'red'; // Critical pressure
@@ -21,9 +38,6 @@ function updateTirePressure() {
     });
 }
 
-// Set positions of the wheels (as in your original code)
-// Adjusted position of all wheels to fit onto PI aspect ratio
-// Front wheels by -50 y and Rear by -100 y
 frontLeft.style.position = 'absolute';
 frontLeft.style.left = '50px';  // Set the X position
 frontLeft.style.top = '50px';   // Set the Y position
@@ -39,9 +53,15 @@ rearLeft.style.top = '300px';   // Set the Y position
 rearRight.style.position = 'absolute';
 rearRight.style.left = '200px';  // Set the X position
 rearRight.style.top = '300px'; 
-
 // Update tire pressure every 3 seconds
 setInterval(updateTirePressure, 3000);
+
+
+// Set positions of the wheels (as in your original code)
+// Adjusted position of all wheels to fit onto PI aspect ratio
+// Front wheels by -50 y and Rear by -100 y
+
+
 
 // Simulate CACC mileage increasing every 5 seconds
 let caccMileage = 27.3;
@@ -102,18 +122,74 @@ function updateMileage() {
 }
 setInterval(updateMileage, 5000);
 
-// Select all indicator buttons
-const indicators = document.querySelectorAll('.indicator');
+const dmsButton = document.getElementById('dms-button');
 
-// Function to toggle color
-indicators.forEach(indicator => {
-    indicator.addEventListener('click', () => {
-        if (indicator.classList.contains('active')) {
-            indicator.classList.remove('active');
-            indicator.style.backgroundColor = '#333'; // Original color
-        } else {
-            indicator.classList.add('active');
-            indicator.style.backgroundColor = '#007BFF'; // Active color (change as desired)
-        }
-    });
+dmsButton.addEventListener('click', () => {
+    if (dmsButton.classList.contains('active')) {
+        dmsButton.classList.remove('active');
+        dmsButton.textContent = 'DMS Off';
+        dmsButton.style.backgroundColor = '#333'; // Original color
+    } else {
+        dmsButton.classList.add('active');
+        dmsButton.textContent = 'DMS On';
+        dmsButton.style.backgroundColor = '#007BFF'; // Active color
+    }
 });
+
+function updateMotorTemperatures() {
+    const frontMotorTemp = Math.floor(Math.random() * 30) + 60; // Random temp between 60-90°C
+    const rearMotorTemp = Math.floor(Math.random() * 30) + 60;  // Random temp between 60-90°C
+
+    document.getElementById('front-motor-temp').innerText = `Front Motor Temp: ${frontMotorTemp}°C`;
+    document.getElementById('rear-motor-temp').innerText = `Rear Motor Temp: ${rearMotorTemp}°C`;
+}
+
+// Update temperatures every 3 seconds
+setInterval(updateMotorTemperatures, 3000);
+
+function updateDriveMode() {
+    const driveModes = ['Parked', 'Drive', 'Reverse', 'Neutral'];
+    const currentMode = driveModes[Math.floor(Math.random() * driveModes.length)];
+
+    document.getElementById('drive-mode-status').innerText = `Drive Mode: ${currentMode}`;
+
+    // Optional: Change color based on the mode
+    if (currentMode === 'Drive') {
+        document.getElementById('drive-mode-status').style.color = '#ffffff'; // Green
+    } else if (currentMode === 'Reverse') {
+        document.getElementById('drive-mode-status').style.color = '#ffffff'; // Red
+    } else {
+        document.getElementById('drive-mode-status').style.color = '#ffffff'; // White
+    }
+}
+
+// Update drive mode every 5 seconds (adjust as needed)
+setInterval(updateDriveMode, 5000);
+
+let fuelLevel = 100; // Initial fuel percentage
+
+function updateFuelLevel() {
+    if (fuelLevel > 0) {
+        fuelLevel -= 0.1; // Decrease fuel level over time
+        document.getElementById('fuel-percentage').innerText = `${fuelLevel.toFixed(1)}%`;
+        
+        const fuelElement = document.getElementById('fuel-level');
+        fuelElement.style.width = `${fuelLevel}%`;
+
+        // Change color based on fuel level
+        if (fuelLevel > 50) {
+            fuelElement.style.backgroundColor = 'limegreen'; // Green for more than 50%
+        } else if (fuelLevel > 20) {
+            fuelElement.style.backgroundColor = 'yellow'; // Yellow for 20% - 50%
+        } else {
+            fuelElement.style.backgroundColor = 'red'; // Red for less than 20%
+        }
+    } else {
+        fuelLevel = 0;
+        document.getElementById('fuel-percentage').innerText = '0%';
+        fuelElement.style.backgroundColor = 'red';
+    }
+}
+
+// Update fuel level every second (adjust interval as needed)
+setInterval(updateFuelLevel, 1000);
