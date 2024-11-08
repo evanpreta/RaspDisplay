@@ -50,9 +50,46 @@ body {
 }
 
 
-.indicator {
+.dms-indicator {
+    position: absolute;
+    
+    left: 270px;
     padding: 20px; /* Increased padding for a larger button */
-    width: 300px;  /* Wide button */
+    width: 200px;  /* Wide button */
+    border-radius: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.1);
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px; /* Larger text */
+}
+
+.ain-indicator {
+    position: absolute;
+    
+    left: 520px;
+    padding: 20px; /* Increased padding for a larger button */
+    width: 200px;  /* Wide button */
+    border-radius: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.1);
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px; /* Larger text */
+}
+
+.dyno-indicator {
+    position: absolute;
+    
+    left: 770px;
+    padding: 20px; /* Increased padding for a larger button */
+    width: 200px;  /* Wide button */
     border-radius: 10px;
     text-align: center;
     transition: background-color 0.3s ease;

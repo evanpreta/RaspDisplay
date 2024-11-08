@@ -136,6 +136,34 @@ dmsButton.addEventListener('click', () => {
     }
 });
 
+const ainButton = document.getElementById('ain-button');
+
+ainButton.addEventListener('click', () => {
+    if (ainButton.classList.contains('active')) {
+        ainButton.classList.remove('active');
+        ainButton.textContent = 'AIN Off';
+        ainButton.style.backgroundColor = '#333'; // Original color
+    } else {
+        ainButton.classList.add('active');
+        ainButton.textContent = 'AIN Active';
+        ainButton.style.backgroundColor = '#007BFF'; // Active color
+    }
+});
+
+const dynoButton = document.getElementById('dyno-button');
+
+dynoButton.addEventListener('click', () => {
+    if (dynoButton.classList.contains('active')) {
+        dynoButton.classList.remove('active');
+        dynoButton.textContent = 'DYNO Off';
+        dynoButton.style.backgroundColor = '#333'; // Original color
+    } else {
+        dynoButton.classList.add('active');
+        dynoButton.textContent = 'DYNO On';
+        dynoButton.style.backgroundColor = '#007BFF'; // Active color
+    }
+});
+
 function updateMotorTemperatures() {
     const frontMotorTemp = Math.floor(Math.random() * 30) + 60; // Random temp between 60-90°C
     const rearMotorTemp = Math.floor(Math.random() * 30) + 60;  // Random temp between 60-90°C
