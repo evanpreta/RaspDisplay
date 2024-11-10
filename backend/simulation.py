@@ -20,6 +20,8 @@ test_data = [
     (0x0A, 0.0),   # traffic_light_state (e.g "Green")
     (0x0B, 69.0),  # CACC 
     #0x0C-0E are yet to be implemented in tcp_client.py
+    (0x11, 0),     # front_axel_power 
+    (0x12, 0),     # rear_axel_power
 ]
 
 # Start the simulated TCP server
@@ -53,6 +55,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
                     value = random.randint(0, 2)
                 elif identifier == 0x0B:  # CACC mileage (± 10 miles)
                     value = random.uniform(59.0, 79.0)
+                elif identifier == 0x11: # front_axel_power
+                    value = random.randint(0, 1)
+                elif identifier == 0x12: # rear_axel_power
+                    value = random.randint(0, 1)
 
                 # Update the test_data list with the new value
                 test_data[i] = (identifier, value)
