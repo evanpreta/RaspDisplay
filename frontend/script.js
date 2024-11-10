@@ -38,6 +38,7 @@ window.onload = function() {
                 }
                 document.getElementById('distance').innerText = previousDistance;
 
+                // Front and Rear Motor Temperatures (EDU Temps)
                 if (data.front_edu_reported_temp !== undefined) {
                     previousFrontMotorTemp = `Front Motor Temp: ${data.front_edu_reported_temp}°C`;
                 }
@@ -47,11 +48,27 @@ window.onload = function() {
                     previousRearMotorTemp = `Rear Motor Temp: ${data.back_edu_reported_temp}°C`;
                 }
                 document.getElementById('rear-motor-temp').innerText = previousRearMotorTemp;
+
+                // Traffic Light State Update
+                if (data.traffic_light_state !== undefined) {
+                    updateTrafficLightState(data.traffic_light_state);
+                }
             })
             .catch(error => console.error("Error fetching data:", error));
     }
 
+    function updateTrafficLightState(state) {
+        const redLight = document.querySelector('.red-light');
+        const yellowLight = document.querySelector('.yellow-light');
+        const greenLight = document.querySelector('.green-light');
+
+        redLight.classList.toggle('active', state === 0);
+        yellowLight.classList.toggle('active', state === 1);
+        greenLight.classList.toggle('active', state === 2);
+    }
+
     setInterval(fetchData, 2000);
+
 
     // Function to send command to the backend when buttons are clicked
     function sendCommand(identifier, value) {
@@ -102,13 +119,13 @@ window.onload = function() {
         }
     }
 
-    // Additional UI update functions as needed
-    function updateTrafficLightState(state) {
-        const lights = document.querySelectorAll('.light');
-        lights.forEach((light, index) => {
-            light.classList.toggle('active', index === state);
-        });
-    }
+    // // Additional UI update functions as needed
+    // function updateTrafficLightState(state) {
+    //     const lights = document.querySelectorAll('.light');
+    //     lights.forEach((light, index) => {
+    //         light.classList.toggle('active', index === state);
+    //     });
+    // }
 
     // Set default wheel positions
     const frontLeft = document.querySelector('.wheel.front-left');
