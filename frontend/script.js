@@ -54,6 +54,18 @@ window.onload = function() {
                     console.log("Traffic Light State:", data.traffic_light_state);
                     updateTrafficLightState(data.traffic_light_state);
                 }
+
+                if (data.drive_mode_active !== undefined) {
+                    let driveModeText = "Drive Mode: ";
+                    if (data.drive_mode_active === 0) {
+                        driveModeText += "Default Drive";
+                    } else if (data.drive_mode_active === 1) {
+                        driveModeText += "Performance Drive";
+                    } else if (data.drive_mode_active === 2) {
+                        driveModeText += "ECO Drive";
+                    }
+                    document.getElementById('drive-mode-status').innerText = driveModeText;
+                }
             })
             .catch(error => console.error("Error fetching data:", error));
     }
@@ -80,7 +92,7 @@ window.onload = function() {
         }
     }
 
-    setInterval(fetchData, 2000);
+    setInterval(fetchData, 1000);
 
 
     // Function to send command to the backend when buttons are clicked
