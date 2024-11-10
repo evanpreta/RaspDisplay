@@ -80,7 +80,7 @@ window.onload = function() {
                         wheel.style.backgroundColor = data.rear_axle_power === 0 ? 'red' : 'green';
                     });
                 }
-                
+
             })
             .catch(error => console.error("Error fetching data:", error));
     }
@@ -125,21 +125,21 @@ window.onload = function() {
     }
 
     // Button event listeners to send commands when buttons are clicked
-    const dmsButton = document.getElementById('dms-button');
+    const dmsButton = document.getElementById('DMS-button');
     dmsButton.addEventListener('click', () => {
         const isActive = !dmsButton.classList.contains('active');
         toggleButtonState(dmsButton, isActive);
         sendCommand("dms_switch", isActive ? 1 : 0);
     });
 
-    const ainButton = document.getElementById('ain-button');
+    const ainButton = document.getElementById('AIN-button');
     ainButton.addEventListener('click', () => {
         const isActive = !ainButton.classList.contains('active');
         toggleButtonState(ainButton, isActive);
         sendCommand("ain_switch", isActive ? 1 : 0);
     });
 
-    const dynoButton = document.getElementById('dyno-button');
+    const dynoButton = document.getElementById('DYNO-button');
     dynoButton.addEventListener('click', () => {
         const isActive = !dynoButton.classList.contains('active');
         toggleButtonState(dynoButton, isActive);
