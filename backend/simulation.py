@@ -13,6 +13,7 @@ test_data = [
     (0x03, 45.2),  # hv_battery_pack_temp
     (0x04, 50.1),  # edu_reported_temp
     (0x05, 1.0),   # drive_mode_active (e.g., "Drive")
+    (0x0B, 69.0),   # CACC
 ]
 
 # Start the simulated TCP server

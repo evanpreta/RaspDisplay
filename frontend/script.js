@@ -6,12 +6,6 @@ window.onload = function() {
             .then(response => response.json())
             .then(data => {
                 console.log("Received data:", data);
-                
-                // Update UI with received data
-                if (data.hv_battery_soc !== undefined) {
-                    document.getElementById('fuel-percentage').innerText = `${data.hv_battery_soc}%`;
-                    document.getElementById('fuel-level').style.width = `${data.hv_battery_soc}%`;
-                }
                 if (data.battery_soc !== undefined) {
                     document.getElementById('fuel-percentage').innerText = `${data.battery_soc}%`;
                     document.getElementById('fuel-level').style.width = `${data.battery_soc}%`;
