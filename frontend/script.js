@@ -1,39 +1,43 @@
 window.onload = function() {
 
     // Function to fetch data from the server
-    function fetchData() {
-        fetch('http://localhost:8765/data')
-            .then(response => response.json())
-            .then(data => {
-                console.log("Received data:", data);
-                if (data.battery_soc !== undefined) {
-                    document.getElementById('fuel-percentage').innerText = `${data.battery_soc}%`;
-                    document.getElementById('fuel-level').style.width = `${data.battery_soc}%`;
-                }
-                if (data.hv_battery_pack_temp !== undefined) {
-                    document.getElementById('battery-temp').innerText = `${data.hv_battery_pack_temp}°C`;
-                }
-                if (data.edu_reported_temp !== undefined) {
-                    document.getElementById('edu-temp').innerText = `${data.edu_reported_temp}°C`;
-                }
-                if (data.drive_mode_active !== undefined) {
-                    document.getElementById('drive-mode-status').innerText = `Drive Mode: ${data.drive_mode_active}`;
-                }
-                if (data.distance_to_lead_vehicle !== undefined) {
-                    document.getElementById('distance').innerText = `Distance: ${data.distance_to_lead_vehicle}m`;
-                }
-                if (data.traffic_light_state !== undefined) {
-                    updateTrafficLightState(data.traffic_light_state);
-                }
-                if (data.cacc_mileage_accumulation !== undefined) {
-                    document.getElementById('cacc-mileage').innerText = `${data.cacc_mileage_accumulation} mi`;
-                }
-            })
-            .catch(error => console.error("Error fetching data:", error));
-    }
+let previousBatterySoc = document.getElementById('fuel-percentage').innerText;
+let previousBatteryTemp = document.getElementById('battery-temp').innerText;
+let previousCaccMileage = document.getElementById('cacc-mileage').innerText;
+let previousDriveMode = document.getElementById('drive-mode-status').innerText;
 
-    // Poll every 2 seconds to fetch data
-    setInterval(fetchData, 2000);
+function fetchData() {
+    fetch('http://localhost:8765/data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.battery_soc !== undefined) {
+                previousBatterySoc = `${data.battery_soc}%`;
+            }
+            document.getElementById('fuel-percentage').innerText = previousBatterySoc;
+            document.getElementById('fuel-level').style.width = previousBatterySoc;
+
+            if (data.hv_battery_pack_temp !== undefined) {
+                previousBatteryTemp = `${data.hv_battery_pack_temp}°C`;
+            }
+            document.getElementById('battery-temp').innerText = previousBatteryTemp;
+
+            if (data.cacc_mileage_accumulation !== undefined) {
+                previousCaccMileage = `${data.cacc_mileage_accumulation} mi`;
+            }
+            document.getElementById('cacc-mileage').innerText = previousCaccMileage;
+
+            if (data.drive_mode_active !== undefined) {
+                previousDriveMode = `Drive Mode: ${data.drive_mode_active}`;
+            }
+            document.getElementById('drive-mode-status').innerText = previousDriveMode;
+
+            // Add similar conditions for other variables if needed
+        })
+        .catch(error => console.error("Error fetching data:", error));
+}
+
+setInterval(fetchData, 2000);
+
 
     // Function to send command to the backend when buttons are clicked
     function sendCommand(identifier, value) {
