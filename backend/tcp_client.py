@@ -1,15 +1,15 @@
 import asyncio
+import websockets
 import socket
 import struct
 import json
-import websockets
 
 # TCP server connection details
 TCP_HOST = '10.10.10.1'  # Replace with actual IP or hostname of the TCP server
 TCP_PORT = 1048  # Replace with the correct port used by the TCP server
 
 # WebSocket server details
-WEBSOCKET_URI = "ws://localhost:8765"  # WebSocket server address
+WEBSOCKET_PORT = 8765
 
 # Mapping of hex identifiers to parameter names
 identifier_mapping = {
@@ -28,71 +28,78 @@ identifier_mapping = {
     0x0D: 'request_for_dyno_mode',           # Request for Dyno Mode
     0x0E: 'object_injection_simulation',     # Object Injection Simulation
 }
-
-# Reverse mapping for sending commands from frontend to TCP server
 reverse_identifier_mapping = {v: k for k, v in identifier_mapping.items()}
 
-def process_message(data):
-    """Parse and process the incoming TCP message."""
-    if len(data) == 5:  # 1 byte for identifier, 4 bytes for float value
-        identifier, value = struct.unpack('!Bf', data)
-        parameter_name = identifier_mapping.get(identifier, f"Unknown(0x{identifier:02X})")
-        print(f"Received from TCP server: {parameter_name} = {value:.2f}")  # Log incoming TCP message
-        return {parameter_name: round(value, 2)}
-    else:
-        print("Invalid message format.")
-        return None
+connected_clients = set()
+tcp_queue = asyncio.Queue()  # Queue to communicate between WebSocket server and TCP client
 
-async def send_to_websocket(message):
-    """Send a message to the WebSocket server for the frontend."""
-    async with websockets.connect(WEBSOCKET_URI) as websocket:
-        await websocket.send(json.dumps(message))
-        print(f"Sent to WebSocket: {message}")  # Log outgoing WebSocket message
+async def broadcast(message):
+    """Send a message to all connected WebSocket clients."""
+    if connected_clients:
+        await asyncio.wait([client.send(message) for client in connected_clients])
 
-async def receive_from_websocket():
-    """Listen for messages from WebSocket server and send them to the TCP server."""
-    async with websockets.connect(WEBSOCKET_URI) as websocket:
-        while True:
-            message = await websocket.recv()
+async def websocket_handler(websocket, path):
+    """Handle WebSocket client connections and messages."""
+    connected_clients.add(websocket)
+    try:
+        async for message in websocket:
+            # Parse message from frontend and put it in the queue for TCP processing
             data = json.loads(message)
-            identifier = reverse_identifier_mapping.get(data['identifier'])
-            if identifier is not None:
-                await send_tcp_message(identifier, data['value'])
-                print(f"Received from WebSocket: {data}")  # Log incoming WebSocket message
-
-async def send_tcp_message(identifier, value):
-    """Send a message to the TCP server."""
-    packed_data = struct.pack('!Bf', identifier, value)
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((TCP_HOST, TCP_PORT))
-        s.sendall(packed_data)
-        print(f"Sent to TCP server: identifier={identifier}, value={value}")
+            await tcp_queue.put(data)
+            print(f"Received from WebSocket client: {data}")
+    finally:
+        connected_clients.remove(websocket)
 
 async def receive_tcp_data():
-    """Connect to the TCP server and receive data, then forward to WebSocket."""
+    """Connect to the TCP server, receive data, and forward it to WebSocket clients."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((TCP_HOST, TCP_PORT))
         print(f"Connected to TCP server at {TCP_HOST}:{TCP_PORT}")
 
         while True:
             try:
-                data = s.recv(5)  # Expecting 5 bytes (1 byte identifier + 4 byte float)
+                data = s.recv(5)
                 if not data:
                     print("TCP server closed the connection.")
                     break
                 
-                message = process_message(data)
-                if message:
-                    await send_to_websocket(message)
+                # Process received TCP data
+                identifier, value = struct.unpack('!Bf', data)
+                parameter_name = identifier_mapping.get(identifier, f"Unknown(0x{identifier:02X})")
+                message = {parameter_name: round(value, 2)}
+                print(f"Received from TCP server: {message}")
+
+                # Forward the message to WebSocket clients
+                await broadcast(json.dumps(message))
             except ConnectionResetError:
                 print("Connection lost. TCP server might have disconnected.")
                 break
 
+async def process_tcp_queue():
+    """Send messages from the queue to the TCP server."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((TCP_HOST, TCP_PORT))
+        print(f"Connected to TCP server for sending commands at {TCP_HOST}:{TCP_PORT}")
+
+        while True:
+            data = await tcp_queue.get()
+            identifier = reverse_identifier_mapping.get(data['identifier'])
+            if identifier is not None:
+                value = data['value']
+                packed_data = struct.pack('!Bf', identifier, value)
+                s.sendall(packed_data)
+                print(f"Sent to TCP server: identifier={identifier}, value={value}")
+
 async def main():
-    # Run TCP receiving and WebSocket receiving concurrently
+    # Start the WebSocket server
+    websocket_server = websockets.serve(websocket_handler, "localhost", WEBSOCKET_PORT)
+    print(f"WebSocket server started on ws://localhost:{WEBSOCKET_PORT}")
+
+    # Run TCP and WebSocket tasks concurrently
     await asyncio.gather(
+        websocket_server,
         receive_tcp_data(),
-        receive_from_websocket()
+        process_tcp_queue()
     )
 
 # Run the main function
