@@ -45,13 +45,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
                     value = random.uniform(47.1, 53.1)
                 elif identifier == 0x0F:  # front_edu_reported_temp (± 3°C)
                     value = random.uniform(47.1, 53.1)
-                elif identifier == 0x05:  # drive_mode_active (fixed value for simplicity)
-                    value = 1.0
+                elif identifier == 0x05:  # drive_mode_active (0 = Drive, 1 = performace, 2 = ECO)
+                    value = random.randint(0,2)
                 elif identifier == 0x09: # distance_to_lead_vehicle (20.0m ± 5.0m)
                     value = random.uniform(15.0, 25.0)
-                elif identifier == 0x0A: # traffic_light_state (e.g. "Green")
+                elif identifier == 0x0A: # traffic_light_state (0 = Red, 1 = Yellow, 2= Green)
                     value = random.randint(0, 2)
-                elif identifier == 0x0B:  # CACC mileage (e.g., ± 10 miles)
+                elif identifier == 0x0B:  # CACC mileage (± 10 miles)
                     value = random.uniform(59.0, 79.0)
 
                 # Update the test_data list with the new value
