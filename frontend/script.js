@@ -1,43 +1,42 @@
 window.onload = function() {
 
     // Function to fetch data from the server
-let previousBatterySoc = document.getElementById('fuel-percentage').innerText;
-let previousBatteryTemp = document.getElementById('battery-temp').innerText;
-let previousCaccMileage = document.getElementById('cacc-mileage').innerText;
-let previousDriveMode = document.getElementById('drive-mode-status').innerText;
+    let previousBatterySoc = document.getElementById('fuel-percentage').innerText;
+    let previousBatteryTemp = document.getElementById('battery-temp').innerText;
+    let previousCaccMileage = document.getElementById('cacc-mileage').innerText;
+    let previousDriveMode = document.getElementById('drive-mode-status').innerText;
 
-function fetchData() {
-    fetch('http://localhost:8765/data')
-        .then(response => response.json())
-        .then(data => {
-            if (data.battery_soc !== undefined) {
-                previousBatterySoc = `${data.battery_soc}%`;
-            }
-            document.getElementById('fuel-percentage').innerText = previousBatterySoc;
-            document.getElementById('fuel-level').style.width = previousBatterySoc;
+    function fetchData() {
+        fetch('http://localhost:8765/data')
+            .then(response => response.json())
+            .then(data => {
+                if (data.battery_soc !== undefined) {
+                    previousBatterySoc = `${data.battery_soc}%`;
+                }
+                document.getElementById('fuel-percentage').innerText = previousBatterySoc;
+                document.getElementById('fuel-level').style.width = previousBatterySoc;
 
-            if (data.hv_battery_pack_temp !== undefined) {
-                previousBatteryTemp = `${data.hv_battery_pack_temp}°C`;
-            }
-            document.getElementById('battery-temp').innerText = previousBatteryTemp;
+                if (data.hv_battery_pack_temp !== undefined) {
+                    previousBatteryTemp = `${data.hv_battery_pack_temp}°C`;
+                }
+                document.getElementById('battery-temp').innerText = previousBatteryTemp;
 
-            if (data.cacc_mileage_accumulation !== undefined) {
-                previousCaccMileage = `${data.cacc_mileage_accumulation} mi`;
-            }
-            document.getElementById('cacc-mileage').innerText = previousCaccMileage;
+                if (data.cacc_mileage_accumulation !== undefined) {
+                    previousCaccMileage = `${data.cacc_mileage_accumulation} mi`;
+                }
+                document.getElementById('cacc-mileage').innerText = previousCaccMileage;
 
-            if (data.drive_mode_active !== undefined) {
-                previousDriveMode = `Drive Mode: ${data.drive_mode_active}`;
-            }
-            document.getElementById('drive-mode-status').innerText = previousDriveMode;
+                if (data.drive_mode_active !== undefined) {
+                    previousDriveMode = `Drive Mode: ${data.drive_mode_active}`;
+                }
+                document.getElementById('drive-mode-status').innerText = previousDriveMode;
 
-            // Add similar conditions for other variables if needed
-        })
-        .catch(error => console.error("Error fetching data:", error));
-}
+                // Add similar conditions for other variables if needed
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    }
 
-setInterval(fetchData, 2000);
-
+    setInterval(fetchData, 2000);
 
     // Function to send command to the backend when buttons are clicked
     function sendCommand(identifier, value) {
@@ -114,28 +113,4 @@ setInterval(fetchData, 2000);
     rearRight.style.position = 'absolute';
     rearRight.style.left = '200px';
     rearRight.style.top = '300px';
-
-    // Simulate drive mode update
-    function updateDriveMode() {
-        const driveModes = ['Parked', 'Drive', 'Reverse', 'Neutral'];
-        document.getElementById('drive-mode-status').innerText = `Drive Mode: ${driveModes[Math.floor(Math.random() * driveModes.length)]}`;
-    }
-    setInterval(updateDriveMode, 5000);
-
-    // Example fuel level simulation
-    let fuelLevel = 100;
-    function updateFuelLevel() {
-        if (fuelLevel > 0) {
-            fuelLevel -= 0.1;
-            document.getElementById('fuel-percentage').innerText = `${fuelLevel.toFixed(1)}%`;
-            const fuelElement = document.getElementById('fuel-level');
-            fuelElement.style.width = `${fuelLevel}%`;
-            fuelElement.style.backgroundColor = fuelLevel > 50 ? 'limegreen' : (fuelLevel > 20 ? 'yellow' : 'red');
-        } else {
-            fuelLevel = 0;
-            document.getElementById('fuel-percentage').innerText = '0%';
-            document.getElementById('fuel-level').style.backgroundColor = 'red';
-        }
-    }
-    setInterval(updateFuelLevel, 1000);
 }
