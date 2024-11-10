@@ -66,6 +66,21 @@ window.onload = function() {
                     }
                     document.getElementById('drive-mode-status').innerText = driveModeText;
                 }
+
+                if (data.front_axle_power !== undefined) {
+                    const frontWheels = document.querySelectorAll('.wheel.front-left, .wheel.front-right');
+                    frontWheels.forEach(wheel => {
+                        wheel.style.backgroundColor = data.front_axle_power === 0 ? 'red' : 'green';
+                    });
+                }
+    
+                if (data.rear_axle_power !== undefined) {
+                    const rearWheels = document.querySelectorAll('.wheel.rear-left, .wheel.rear-right');
+                    rearWheels.forEach(wheel => {
+                        wheel.style.backgroundColor = data.rear_axle_power === 0 ? 'red' : 'green';
+                    });
+                }
+                
             })
             .catch(error => console.error("Error fetching data:", error));
     }

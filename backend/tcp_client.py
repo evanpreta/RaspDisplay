@@ -30,6 +30,8 @@ identifier_mapping = {
     0x0C: 'udp_simulation_data_received',
     0x0D: 'request_for_dyno_mode',
     0x0E: 'object_injection_simulation',
+    0x11: 'front_axle_power',
+    0x12: 'rear_axle_power'
 }
 
 # Reverse mapping for sending commands
