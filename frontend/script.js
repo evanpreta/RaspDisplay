@@ -1,10 +1,12 @@
 window.onload = function() {
 
-    // Function to fetch data from the server
     let previousBatterySoc = document.getElementById('fuel-percentage').innerText;
     let previousBatteryTemp = document.getElementById('battery-temp').innerText;
     let previousCaccMileage = document.getElementById('cacc-mileage').innerText;
     let previousDriveMode = document.getElementById('drive-mode-status').innerText;
+    let previousDistance = document.getElementById('distance').innerText;
+    let previousFrontMotorTemp = document.getElementById('front-motor-temp').innerText;
+    let previousRearMotorTemp = document.getElementById('rear-motor-temp').innerText;
 
     function fetchData() {
         fetch('http://localhost:8765/data')
@@ -31,7 +33,20 @@ window.onload = function() {
                 }
                 document.getElementById('drive-mode-status').innerText = previousDriveMode;
 
-                // Add similar conditions for other variables if needed
+                if (data.distance_to_lead_vehicle !== undefined) {
+                    previousDistance = `Distance: ${data.distance_to_lead_vehicle}m`;
+                }
+                document.getElementById('distance').innerText = previousDistance;
+
+                if (data.front_edu_reported_temp !== undefined) {
+                    previousFrontMotorTemp = `Front Motor Temp: ${data.front_edu_reported_temp}°C`;
+                }
+                document.getElementById('front-motor-temp').innerText = previousFrontMotorTemp;
+
+                if (data.back_edu_reported_temp !== undefined) {
+                    previousRearMotorTemp = `Rear Motor Temp: ${data.back_edu_reported_temp}°C`;
+                }
+                document.getElementById('rear-motor-temp').innerText = previousRearMotorTemp;
             })
             .catch(error => console.error("Error fetching data:", error));
     }
