@@ -51,6 +51,7 @@ window.onload = function() {
 
                 // Traffic Light State Update
                 if (data.traffic_light_state !== undefined) {
+                    console.log("Traffic Light State:", data.traffic_light_state);
                     updateTrafficLightState(data.traffic_light_state);
                 }
             })
@@ -58,13 +59,25 @@ window.onload = function() {
     }
 
     function updateTrafficLightState(state) {
+        console.log("Updating traffic light with state:", state);
+        
         const redLight = document.querySelector('.red-light');
         const yellowLight = document.querySelector('.yellow-light');
         const greenLight = document.querySelector('.green-light');
 
-        redLight.classList.toggle('active', state === 0);
-        yellowLight.classList.toggle('active', state === 1);
-        greenLight.classList.toggle('active', state === 2);
+        // Clear active class from all lights
+        redLight.classList.remove('active');
+        yellowLight.classList.remove('active');
+        greenLight.classList.remove('active');
+
+        // Add active class based on traffic light state
+        if (state === 0) {
+            redLight.classList.add('active');
+        } else if (state === 1) {
+            yellowLight.classList.add('active');
+        } else if (state === 2) {
+            greenLight.classList.add('active');
+        }
     }
 
     setInterval(fetchData, 2000);
