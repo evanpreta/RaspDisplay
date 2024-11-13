@@ -174,15 +174,15 @@ window.onload = function() {
     const rearRight = document.querySelector('.wheel.rear-right');
 
     frontLeft.style.position = 'absolute';
-    frontLeft.style.left = '50px';
-    frontLeft.style.top = '50px';
+    frontLeft.style.left = '80px';
+    frontLeft.style.top = '60px';
     frontRight.style.position = 'absolute';
-    frontRight.style.left = '200px';
-    frontRight.style.top = '50px';
+    frontRight.style.left = '205px';
+    frontRight.style.top = '60px';
     rearLeft.style.position = 'absolute';
-    rearLeft.style.left = '50px';
-    rearLeft.style.top = '300px';
+    rearLeft.style.left = '80px';
+    rearLeft.style.top = '260px';
     rearRight.style.position = 'absolute';
-    rearRight.style.left = '200px';
-    rearRight.style.top = '300px';
+    rearRight.style.left = '205px';
+    rearRight.style.top = '260px';
 }

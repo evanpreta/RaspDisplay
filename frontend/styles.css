@@ -54,8 +54,8 @@ body {
     position: absolute;
     
     left: 270px;
-    padding: 20px; /* Increased padding for a larger button */
-    width: 200px;  /* Wide button */
+    padding: 10px; /* Increased padding for a larger button */
+    width: 100px;  /* Wide button */
     border-radius: 10px;
     text-align: center;
     transition: background-color 0.3s ease;
@@ -70,9 +70,9 @@ body {
 .ain-indicator {
     position: absolute;
     
-    left: 520px;
-    padding: 20px; /* Increased padding for a larger button */
-    width: 200px;  /* Wide button */
+    left: 400px;
+    padding: 10px; /* Increased padding for a larger button */
+    width: 100px;  /* Wide button */
     border-radius: 10px;
     text-align: center;
     transition: background-color 0.3s ease;
@@ -87,9 +87,9 @@ body {
 .dyno-indicator {
     position: absolute;
     
-    left: 770px;
-    padding: 20px; /* Increased padding for a larger button */
-    width: 200px;  /* Wide button */
+    left: 530px;
+    padding: 10px; /* Increased padding for a larger button */
+    width: 110px;  /* Wide button */
     border-radius: 10px;
     text-align: center;
     transition: background-color 0.3s ease;
@@ -226,7 +226,7 @@ body {
 }
 
 .car-model {
-    position: relative;
+    position: absolute;
     width: 300px;
     height: 400px;
 }
@@ -236,11 +236,12 @@ body {
     width: 100%;
     height: 100%;
     z-index: 2;
+   
 }
 
 .wheel {
-    width: 50px;
-    height: 80px;
+    width: 30px;
+    height: 60px;
     position: absolute;
     border-radius: 10%;
     background-color: green;
@@ -249,16 +250,16 @@ body {
 }
 
 .car-image {
-    width: 240px;
-    height: 400px;
-    transform: translate(30px, 10px); /* Adjusted for your position */
+    width: 200px;
+    height: 330px;
+    transform: translate(60px, 30px); /* Adjusted for your position */
     filter: drop-shadow(0 0 3px white); /* Creates a white outline effect */
 }
 
 
 
 .front-left {
-    left: 50px;  /* Set the X position */
+    left: 200px;  /* Set the X position */
     top: 200px;   /* Set the Y position */
 }
 
@@ -292,11 +293,26 @@ body {
     font-size: 28px;
 }
 
-.motor-temp {
+.motor-temp-front {
     text-align: center;
     font-size: 20px;
     margin: 20px 0; /* Adjust for spacing above and below the text */
     line-height: 1.5; /* Adjust for height of the text */
+    position: absolute;
+    top: 30px;
+    left: 750px
+}
+
+.motor-temp-rear {
+    text-align: center;
+    font-size: 20px;
+    margin: 20px 0; /* Adjust for spacing above and below the text */
+    line-height: 1.5; /* Adjust for height of the text */
+    position: absolute;
+    top: 450px;
+    left: 760px
+
+    
 }
 
 .drive-mode {
